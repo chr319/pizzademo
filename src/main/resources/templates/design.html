@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Pizza Site</title>
@@ -7,8 +8,15 @@
 <body>
     <h1>Design your Pizza!~</h1>
     <img th:src="@{/images/pizza.jpeg}"/>
-    <form method="post" th:object="@{design}">
-
+    <form method="post" th:object="${design}">
+        <div class="grid">
+            <div class="ingredient-group" id="pizzas">
+                <h3>Designate your pizza:</h3>
+                <div th:each="ingredient:${pizza}"></div>
+                <input name="ingredients" type="checkbox" th:value="${ingredient.id}"/>
+                <span th:text="${ingredient.name}">INGREDIENT</span>
+            </div>
+        </div>
 
     </form>
 

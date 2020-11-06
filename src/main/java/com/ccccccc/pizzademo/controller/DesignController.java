@@ -1,5 +1,6 @@
 package com.ccccccc.pizzademo.controller;
 
+import com.ccccccc.pizzademo.domain.Design;
 import com.ccccccc.pizzademo.domain.Ingredient;
 import com.ccccccc.pizzademo.domain.Ingredient.Type;
 import com.ccccccc.pizzademo.domain.Pizza;
