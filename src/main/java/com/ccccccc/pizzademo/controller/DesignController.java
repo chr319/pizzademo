@@ -1,6 +1,5 @@
 package com.ccccccc.pizzademo.controller;
 
-import com.ccccccc.pizzademo.domain.Design;
 import com.ccccccc.pizzademo.domain.Ingredient;
 import com.ccccccc.pizzademo.domain.Ingredient.Type;
 import com.ccccccc.pizzademo.domain.Pizza;
@@ -50,7 +49,7 @@ public class DesignController {
     }
 
     @PostMapping
-    public String processDesign(Design design){
+    public String processDesign(Pizza design){
         log.info("Process design: "+design);
         return "redirect:/orders/current";
     }
