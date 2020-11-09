@@ -9,13 +9,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 @Repository
-public class JdbcIngredientRepository implements IngredientRepository{
+public class JdbcIngredientRepository implements IngredientRepository {
 
     private JdbcTemplate jdbc;
 
     @Autowired
-    public JdbcIngredientRepository(JdbcTemplate jdbc){
-        this.jdbc=jdbc;
+    public JdbcIngredientRepository(JdbcTemplate jdbc) {
+        this.jdbc = jdbc;
     }
 
 
@@ -28,7 +28,7 @@ public class JdbcIngredientRepository implements IngredientRepository{
     @Override
     public Ingredient findOne(String id) {
         return jdbc.queryForObject("select id, name,type from Ingredient where id=?",
-                this::mapRowToIngredient,id);
+                this::mapRowToIngredient, id);
     }
 
     @Override
@@ -42,8 +42,8 @@ public class JdbcIngredientRepository implements IngredientRepository{
 
     private Ingredient mapRowToIngredient(ResultSet rs, int rowNum)
             throws SQLException {
-            return new Ingredient(rs.getString("id"),
-                    rs.getString("name"),
-                    Ingredient.Type.valueOf(rs.getString("type")));
+        return new Ingredient(rs.getString("id"),
+                rs.getString("name"),
+                Ingredient.Type.valueOf(rs.getString("type")));
     }
 }

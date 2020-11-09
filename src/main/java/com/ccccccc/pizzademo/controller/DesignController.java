@@ -33,18 +33,18 @@ public class DesignController {
     }
 
     @GetMapping
-    public String showDesignForm(Model model){
+    public String showDesignForm(Model model) {
 
         List<Ingredient> ingredients = new ArrayList<>();
         ingredientRepo.findAll().forEach(i -> ingredients.add(i));
 
-        Type[] types= Ingredient.Type.values();
+        Type[] types = Ingredient.Type.values();
         for (Type type : types) {
             model.addAttribute(type.toString().toLowerCase(),
                     filterByType(ingredients, type));
         }
 
-        model.addAttribute("design",new Pizza());
+        model.addAttribute("design", new Pizza());
         return "design";
     }
 
@@ -53,11 +53,11 @@ public class DesignController {
     }
 
     @PostMapping
-    public String processDesign(@Valid Pizza design, Errors errors){
+    public String processDesign(@Valid Pizza design, Errors errors) {
         if (errors.hasErrors())
             return "design";
 
-        log.info("Process design: "+design);
+        log.info("Process design: " + design);
         return "redirect:/orders/current";
     }
 
