@@ -1,18 +1,17 @@
 package com.ccccccc.pizzademo.controller;
 
 import com.ccccccc.pizzademo.data.IngredientRepository;
+import com.ccccccc.pizzademo.data.PizzaRepository;
 import com.ccccccc.pizzademo.domain.Ingredient;
 import com.ccccccc.pizzademo.domain.Ingredient.Type;
+import com.ccccccc.pizzademo.domain.Order;
 import com.ccccccc.pizzademo.domain.Pizza;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -26,10 +25,21 @@ import java.util.stream.Collectors;
 public class DesignController {
 
     private final IngredientRepository ingredientRepo;
+    private PizzaRepository pizzaRepo;
 
     @Autowired
-    public DesignController(IngredientRepository ingredientRepo) {
+    public DesignController(IngredientRepository ingredientRepo,PizzaRepository pizzaRepo) {
         this.ingredientRepo = ingredientRepo;
+        this.pizzaRepo = pizzaRepo;
+    }
+
+    @ModelAttribute(name = "order")
+    public Order order(){
+        return new Order();
+    }
+    @ModelAttribute(name = "pizza")
+    public Pizza pizza(){
+        return new Pizza();
     }
 
     @GetMapping
@@ -53,9 +63,14 @@ public class DesignController {
     }
 
     @PostMapping
-    public String processDesign(@Valid Pizza design, Errors errors) {
+    public String processDesign(
+            @Valid Pizza design, Errors errors,
+            @ModelAttribute Order order) {
         if (errors.hasErrors())
             return "design";
+
+        Pizza saved = pizzaRepo.save(design);
+        order.addDesign(saved);
 
         log.info("Process design: " + design);
         return "redirect:/orders/current";

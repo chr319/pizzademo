@@ -4,10 +4,18 @@ import com.ccccccc.pizzademo.domain.Ingredient;
 import com.ccccccc.pizzademo.domain.Pizza;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.jdbc.core.PreparedStatementCreatorFactory;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.stereotype.Repository;
 
+import java.sql.Timestamp;
+import java.sql.Types;
+import java.util.Arrays;
 import java.util.Date;
 
-public class JdbcPizzaRepository implements PizzaRepository{
+@Repository
+public class JdbcPizzaRepository implements PizzaRepository {
 
     private JdbcTemplate jdbc;
 
@@ -18,19 +26,35 @@ public class JdbcPizzaRepository implements PizzaRepository{
     @Override
     public Pizza save(Pizza pizza) {
 
-        long pizzaId=savePizzaInfo(pizza);
+        long pizzaId = savePizzaInfo(pizza);
         pizza.setId(pizzaId);
-        for (Ingredient ingredient : pizza.getIngredients()){
-            saveIngredientToPizza(ingredient,pizzaId);
+        for (Ingredient ingredient : pizza.getIngredients()) {
+            saveIngredientToPizza(ingredient, pizzaId);
         }
 
         return pizza;
     }
 
-    private long savePizzaInfo(Pizza pizza){
+    private long savePizzaInfo(Pizza pizza) {
         pizza.setCreatedAt(new Date());
-        PreparedStatementCreator psc=
+        PreparedStatementCreator psc = new PreparedStatementCreatorFactory(
+                "insert into Pizza (name,createdAt) values (?,?)",
+                Types.VARCHAR, Types.TIMESTAMP
+        ).newPreparedStatementCreator(
+                Arrays.asList(
+                        pizza.getName(),
+                        new Timestamp(pizza.getCreatedAt().getTime())
+                )
+        );
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbc.update(psc, keyHolder);
+        return keyHolder.getKey().longValue();
+    }
 
+    private void saveIngredientToPizza(Ingredient ingredient, long pizzaId) {
+        jdbc.update(
+                "insert into Pizza_Ingredients (pizza , ingredient)" + "values (?,?)",
+                pizzaId, ingredient.getId());
     }
 
 }
