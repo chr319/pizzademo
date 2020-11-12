@@ -65,9 +65,10 @@ public class DesignController {
     @PostMapping
     public String processDesign(
             @Valid Pizza design, Errors errors,
-            @ModelAttribute Order order) {
+            @ModelAttribute Order order,Model model) {
         if (errors.hasErrors())
-            return "design";
+        {  model.addAttribute("design",design);
+            return "design";}
 
         Pizza saved = pizzaRepo.save(design);
         order.addDesign(saved);

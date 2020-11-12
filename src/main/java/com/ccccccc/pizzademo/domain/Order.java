@@ -42,4 +42,8 @@ public class Order {
     private String ccCVV;
 
     private List<Pizza> pizzas;
+
+    public void addDesign(Pizza pizza){
+        pizzas.add(pizza);
+    }
 }

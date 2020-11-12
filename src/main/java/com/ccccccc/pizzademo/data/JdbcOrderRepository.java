@@ -8,6 +8,7 @@ import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -47,6 +48,16 @@ public class JdbcOrderRepository implements OrderRepository{
         Map<String, Object> values =
                 objectMapper.convertValue(order,Map.class);
         values.put("placedAt", order.getPlacedAt());
+
+        long orderId=orderInserter.executeAndReturnKey(values).longValue();
+        return orderId;
+    }
+
+    private void savePizzaToOder(Pizza pizza,long orderId){
+        Map<String, Object> values = new HashMap<>();
+        values.put("pizzaOrder",orderId);
+        values.put("pizza",pizza.getId());
+        orderPizzaInserter.execute(values);
 
     }
 
