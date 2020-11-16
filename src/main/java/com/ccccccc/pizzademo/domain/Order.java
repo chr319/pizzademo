@@ -3,15 +3,23 @@ package com.ccccccc.pizzademo.domain;
 import lombok.Data;
 import org.hibernate.validator.constraints.CreditCardNumber;
 
+import javax.persistence.*;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @Data
-public class Order {
+@Entity
+@Table(name = "Pizza_Order")
+public class Order implements Serializable {
+    private static final long serialVersionUID = 1L;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private Date placedAt;
@@ -41,9 +49,15 @@ public class Order {
     @Digits(integer = 3, fraction = 0, message = "Not a valid CVV.")
     private String ccCVV;
 
-    private List<Pizza> pizzas;
+    @ManyToMany(targetEntity = Pizza.class)
+    private List<Pizza> pizzas = new ArrayList<>();
 
-    public void addDesign(Pizza pizza){
-        pizzas.add(pizza);
+    public void addDesign(Pizza design) {
+        this.pizzas.add(design);
+    }
+
+    @PrePersist
+    void placedAt() {
+        this.placedAt = new Date();
     }
 }
