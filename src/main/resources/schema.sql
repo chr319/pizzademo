@@ -14,9 +14,9 @@ create table if not exists Pizza_Ingredients (
     pizza int not null,
     ingredient varchar(4) not null
 );
-#
-# alter table Pizza_Ingredients add foreign key (pizza) references Pizza(id);
-# alter table Pizza_Ingredients add foreign key (ingredient) references Ingredient(id);
+
+alter table Pizza_Ingredients add foreign key (pizza) references Pizza(id);
+ alter table Pizza_Ingredients add foreign key (ingredient) references Ingredient(id);
 
 create table if not exists Pizza_Order (
     id int,
@@ -32,10 +32,10 @@ create table if not exists Pizza_Order (
 );
 
 create table if not exists Pizza_Order_Pizzas (
-    PizzaOrder int not null,
-    Pizza int not null
+    pizzaOrder int not null,
+    pizza int not null
 );
 
-# alter table Pizza_Order_Pizzas add foreign key (PizzaOrder) references Pizza_Order(id);
-# alter table Pizza_Order_Pizzas add foreign key (Pizza) references Pizza(id);
+alter table Pizza_Order_Pizzas add foreign key (pizzaOrder) references Pizza_Order(id);
+alter table Pizza_Order_Pizzas add foreign key (pizza) references Pizza(id);
 
