@@ -7,13 +7,15 @@ drop TABLE if exists Ingredient;
 create table if not exists Ingredient (
     id varchar(4) not null,
     name varchar(25) not null,
-    type varchar(10) not null
+    type varchar(10) not null,
+    PRIMARY KEY (`id`) USING BTREE
 );
 
 create table if not exists Pizza (
     id int not null,
     name varchar(50) not null,
-    createdAt timestamp not null
+    createdAt timestamp not null,
+    PRIMARY KEY (`id`) USING BTREE
 );
 
 create table if not exists Pizza_Ingredients (
@@ -34,7 +36,8 @@ create table if not exists Pizza_Order (
     ccNumber varchar(16) not null,
     ccExpiration varchar(5) not null,
     ccCVV varchar(3) not null,
-    placedAt timestamp not null
+    placedAt timestamp not null,
+    PRIMARY KEY (`id`) USING BTREE
 );
 
 create table if not exists Pizza_Order_Pizzas (
