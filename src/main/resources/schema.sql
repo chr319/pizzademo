@@ -1,3 +1,9 @@
+drop TABLE if exists Pizza_Ingredients;
+drop TABLE if exists Pizza_Order_Pizzas;
+drop TABLE if exists Pizza_Order;
+drop TABLE if exists Pizza;
+drop TABLE if exists Ingredient;
+
 create table if not exists Ingredient (
     id varchar(4) not null,
     name varchar(25) not null,
@@ -5,7 +11,7 @@ create table if not exists Ingredient (
 );
 
 create table if not exists Pizza (
-    id int,
+    id int not null,
     name varchar(50) not null,
     createdAt timestamp not null
 );
@@ -15,11 +21,11 @@ create table if not exists Pizza_Ingredients (
     ingredient varchar(4) not null
 );
 
-alter table Pizza_Ingredients add foreign key (pizza) references Pizza(id);
- alter table Pizza_Ingredients add foreign key (ingredient) references Ingredient(id);
+alter table Pizza_Ingredients add foreign key (pizza) references Pizza(id) ON DELETE RESTRICT ON UPDATE RESTRICT;
+ alter table Pizza_Ingredients add foreign key (ingredient) references Ingredient(id) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 create table if not exists Pizza_Order (
-    id int,
+    id int not null,
     deliveryName varchar(50) not null,
     deliveryStreet varchar(50) not null,
     deliveryCity varchar(50) not null,
@@ -36,6 +42,6 @@ create table if not exists Pizza_Order_Pizzas (
     pizza int not null
 );
 
-alter table Pizza_Order_Pizzas add foreign key (pizzaOrder) references Pizza_Order(id);
-alter table Pizza_Order_Pizzas add foreign key (pizza) references Pizza(id);
+alter table Pizza_Order_Pizzas add foreign key (pizzaOrder) references Pizza_Order(id) ON DELETE RESTRICT ON UPDATE RESTRICT;
+alter table Pizza_Order_Pizzas add foreign key (pizza) references Pizza(id) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
