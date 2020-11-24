@@ -47,9 +47,7 @@ public class DesignController {
 
         List<Ingredient> ingredients = new ArrayList<>();
 
-        Iterable<Ingredient> iter=ingredientRepo.findAll();
-        iter.forEach(
-                i -> ingredients.add(i));
+        ingredientRepo.findAll().forEach(i -> ingredients.add(i));
 
         Type[] types = Ingredient.Type.values();
         for (Type type : types) {

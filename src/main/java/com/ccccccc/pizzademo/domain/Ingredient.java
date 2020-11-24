@@ -2,9 +2,7 @@ package com.ccccccc.pizzademo.domain;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Data
 @RequiredArgsConstructor
@@ -17,6 +15,7 @@ public class Ingredient {
     private final String id;
     private final String name;
     @NonNull
+    @Enumerated(EnumType.STRING)
     private final Type type;
 
     public enum Type {
