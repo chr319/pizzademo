@@ -65,18 +65,19 @@ public class DesignController {
 
     @PostMapping
     public String processDesign(
-            @Valid Pizza design, Errors errors,
+            @Valid @ModelAttribute("design") Pizza design, Errors errors,
             @ModelAttribute Order order,Model model) {
         if (errors.hasErrors())
-        {  model.addAttribute("design",design);
-            List<Ingredient> ingredients = new ArrayList<>();
-            ingredientRepo.findAll().forEach(i -> ingredients.add(i));
-
-            Type[] types = Ingredient.Type.values();
-            for (Type type : types) {
-                model.addAttribute(type.toString().toLowerCase(),
-                        filterByType(ingredients, type));
-            }
+        {
+//            model.addAttribute("design",design);
+//            List<Ingredient> ingredients = new ArrayList<>();
+//            ingredientRepo.findAll().forEach(i -> ingredients.add(i));
+//
+//            Type[] types = Ingredient.Type.values();
+//            for (Type type : types) {
+//                model.addAttribute(type.toString().toLowerCase(),
+//                        filterByType(ingredients, type));
+//            }
             return "design";}
 
         Pizza saved = pizzaRepo.save(design);

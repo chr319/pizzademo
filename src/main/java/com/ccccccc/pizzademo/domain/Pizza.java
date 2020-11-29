@@ -25,7 +25,7 @@ public class Pizza {
 
     @ManyToMany(targetEntity = Ingredient.class)
     @Size(min = 1, message = "You must choose at least one ingredient")
-    private List<Ingredient> ingredients;
+    private List<String> ingredients;
 
     @PrePersist
     void createdAt() {
