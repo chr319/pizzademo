@@ -37,7 +37,7 @@ public class DesignController {
     public Order order(){
         return new Order();
     }
-    @ModelAttribute(name = "pizza")
+    @ModelAttribute(name = "design")
     public Pizza pizza(){
         return new Pizza();
     }
@@ -70,14 +70,14 @@ public class DesignController {
         if (errors.hasErrors())
         {
 //            model.addAttribute("design",design);
-//            List<Ingredient> ingredients = new ArrayList<>();
-//            ingredientRepo.findAll().forEach(i -> ingredients.add(i));
-//
-//            Type[] types = Ingredient.Type.values();
-//            for (Type type : types) {
-//                model.addAttribute(type.toString().toLowerCase(),
-//                        filterByType(ingredients, type));
-//            }
+            List<Ingredient> ingredients = new ArrayList<>();
+            ingredientRepo.findAll().forEach(i -> ingredients.add(i));
+
+            Type[] types = Ingredient.Type.values();
+            for (Type type : types) {
+                model.addAttribute(type.toString().toLowerCase(),
+                        filterByType(ingredients, type));
+            }
             return "design";}
 
         Pizza saved = pizzaRepo.save(design);

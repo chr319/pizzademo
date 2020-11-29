@@ -8,6 +8,10 @@
 <h1>Design your Pizza!~</h1>
 <img th:src="@{/images/pizza.jpeg}"/>
 <form method="post" th:object="${design}">
+    <span class="validationError" style="color: red"
+          th:if="${#fields.hasErrors('ingredients')}"
+          th:errors="*{ingredients}">Ingredients Error</span>
+    <br/>
     <div class="grid">
         <div class="ingredient-group" id="crusts">
             <h3>Designate your pizza:</h3>
