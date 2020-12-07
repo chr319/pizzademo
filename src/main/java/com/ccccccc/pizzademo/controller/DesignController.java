@@ -78,7 +78,8 @@ public class DesignController {
                 model.addAttribute(type.toString().toLowerCase(),
                         filterByType(ingredients, type));
             }
-            return "design";}
+            return "design";
+        }
 
         Pizza saved = pizzaRepo.save(design);
         order.addDesign(saved);
