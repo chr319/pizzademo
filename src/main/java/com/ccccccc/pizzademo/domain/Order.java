@@ -7,6 +7,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -25,21 +26,28 @@ public class Order implements Serializable {
     private Date placedAt;
 
     @NotBlank(message = "Name is required.")
+    @Column(name = "deliveryName")
     private String name;
 
     @NotBlank(message = "Street is required.")
+    @Column(name = "deliveryStreet")
     private String street;
 
     @NotBlank(message = "City is required.")
+    @Column(name = "deliveryCity")
     private String city;
 
     @NotBlank(message = "State is required.")
+    @Column(name = "deliveryState")
     private String state;
 
     @NotBlank(message = "Zip is required.")
+    @Column(name = "deliveryZip")
     private String zip;
 
-    @CreditCardNumber(message = "Not a valid credit card number.")
+//    @CreditCardNumber(message = "Not a valid credit card number.")
+    @NotBlank(message = "Card Number is required.")
+    @Size(min=5, message = "not valid card no")
     private String ccNumber;
 
     @Pattern(regexp = "^(0[1-9]|1[0-2])([\\/])([1-9][0-9])$",
@@ -50,6 +58,7 @@ public class Order implements Serializable {
     private String ccCVV;
 
     @ManyToMany(targetEntity = Pizza.class)
+    @JoinTable(name = "Pizza_Order_Pizzas" , joinColumns = @JoinColumn(name = "pizzaOrder"), inverseJoinColumns = @JoinColumn(name = "pizza"))
     private List<Pizza> pizzas = new ArrayList<>();
 
     public void addDesign(Pizza design) {

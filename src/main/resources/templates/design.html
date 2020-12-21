@@ -48,9 +48,6 @@
             <span th:text="${ingredient?.name}">INGREDIENT</span>
             </div>
         </div>
-        <span class="validationError"
-            th:if="${#fields.hasErrors('ingredients')}"
-            th:error="*{ingredients}">ingredients Error</span>
     </div>
     <div>
         <h3>Name your pizza:</h3>

@@ -66,7 +66,7 @@ public class DesignController {
     @PostMapping
     public String processDesign(
             @Valid @ModelAttribute("design") Pizza design, Errors errors,
-            @ModelAttribute Order order,Model model) {
+            @ModelAttribute("order") Order order,Model model) {
         if (errors.hasErrors())
         {
 //            model.addAttribute("design",design);
@@ -85,6 +85,7 @@ public class DesignController {
         order.addDesign(saved);
 
         log.info("Process design: " + design);
+        log.info("Process order: " + order);
         return "redirect:/orders/current";
     }
 
