@@ -1,8 +1,8 @@
-drop TABLE if exists Pizza_Ingredients;
-drop TABLE if exists Pizza_Order_Pizzas;
-drop TABLE if exists Pizza_Order;
-drop TABLE if exists Pizza;
-drop TABLE if exists Ingredient;
+-- drop TABLE if exists Pizza_Ingredients;
+-- drop TABLE if exists Pizza_Order_Pizzas;
+-- drop TABLE if exists Pizza_Order;
+-- drop TABLE if exists Pizza;
+-- drop TABLE if exists Ingredient;
 
 create table if not exists Ingredient (
     id varchar(4) not null,
