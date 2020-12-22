@@ -14,6 +14,7 @@ import javax.validation.Valid;
 @Slf4j
 @Controller
 @RequestMapping("/orders")
+@SessionAttributes("order")
 public class OrderController {
 
     private OrderRepository orderRepo;
@@ -29,7 +30,7 @@ public class OrderController {
     }
 
     @PostMapping
-    public String processOrder(@Valid @SessionAttribute("order") @ModelAttribute("order")  Order order, Errors errors,
+    public String processOrder(@Valid @ModelAttribute("order")  Order order, Errors errors,
                                SessionStatus sessionStatus) {
         if (errors.hasErrors())
             return "orderForm";
