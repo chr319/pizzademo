@@ -48,3 +48,15 @@ create table if not exists Pizza_Order_Pizzas (
 alter table Pizza_Order_Pizzas add foreign key (pizzaOrder) references Pizza_Order(id) ON DELETE RESTRICT ON UPDATE RESTRICT;
 alter table Pizza_Order_Pizzas add foreign key (pizza) references Pizza(id) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
+create table if not exists Pizza_User (
+    id int not null,
+    userName varchar(50) not null,
+    password varchar(500) not null,
+    fullname varchar(50) not null,
+    street varchar(500) not null,
+    city varchar(50) not null,
+    state varchar(50) not null,
+    zip varchar(50) not null,
+    phoneNumber varchar(50) not null,
+    PRIMARY KEY (`id`) USING BTREE
+    );
