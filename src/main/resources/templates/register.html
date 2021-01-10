@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pizza Site</title>
+    <script src="https://eqcn.ajz.miesnfu.com/wp-content/plugins/wp-3d-pony/live2dw/lib/L2Dwidget.min.js"></script>
+</head>
+<body>
+    <h1>Register</h1>
+<!--    <p>what's your favourite pizza?</p>-->
+<!--    <a th:href="@{/design}" id="newDesign"><img th:src="@{/images/pizza.jpeg}"></a>-->
+    <img th:src="@{/images/pizza.jpeg}">
+    <script type="text/javascript">
+        L2Dwidget.init({
+            "model": {
+                jsonPath: "https://unpkg.com/live2d-widget-model-tororo/assets/tororo.model.json",
+                "scale": 1
+            },
+            "display": {
+                "position": "left",<!--设置看板娘的上下左右位置-->
+                "width": 150,
+                "height": 300,
+                "hOffset": 10,
+                "vOffset": -20
+            },
+            "mobile": {
+                "show": true,
+                "scale": 0.5
+            },
+            "react": {
+                "opacityDefault": 1,<!--设置透明度-->
+                "opacityOnHover": 0.2
+            }
+        });
+
+    </script>
+
+    <form method="post" th:action="@{/register}" id="registrationForm">
+
+        <label for="username">Username: </label>
+        <input type="text" name="username"/><br/>
+
+        <label for="password">Password: </label>
+        <input type="password" name="password"/><br/>
+
+        <label for="confirm">Confirm password: </label>
+        <input type="password" name="confirm"/><br/>
+
+        <label for="fullname">Full name: </label>
+        <input type="text" name="fullname"/><br/>
+
+        <label for="street">Street: </label>
+        <input type="text" name="street"/><br/>
+
+        <label for="city">City: </label>
+        <input type="text" name="city"/><br/>
+
+        <label for="state">State: </label>
+        <input type="text" name="state"/><br/>
+
+        <label for="zip">Zip: </label>
+        <input type="text" name="zip"/><br/>
+
+        <label for="phone">Phone: </label>
+        <input type="text" name="phone"/><br/>
+
+        <input type="submit" value="register">
+
+    </form>
+
+</body>
+</html>
