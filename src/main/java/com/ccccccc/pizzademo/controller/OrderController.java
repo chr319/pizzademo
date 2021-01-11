@@ -38,7 +38,7 @@ public class OrderController {
         orderRepo.save(order);
         sessionStatus.setComplete();
         log.info("Order Submit: " + order);
-        return "redirect:/";
+        return "result";
     }
 
 }
