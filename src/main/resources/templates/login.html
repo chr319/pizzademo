@@ -38,6 +38,9 @@
     <div th:if="${param.error}" style="color: red">
         Unable to login. Please check your username and password.
     </div>
+    <div th:if="${param.logout}" style="color: red">
+        已登出
+    </div>
 
     <p>New here? click <a th:href="@{/register}">here</a> to register.</p>
 
