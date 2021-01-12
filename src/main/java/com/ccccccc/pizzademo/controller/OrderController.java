@@ -1,8 +1,10 @@
 package com.ccccccc.pizzademo.controller;
 
+import com.ccccccc.pizzademo.User;
 import com.ccccccc.pizzademo.data.OrderRepository;
 import com.ccccccc.pizzademo.domain.Order;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -31,9 +33,11 @@ public class OrderController {
 
     @PostMapping
     public String processOrder(@Valid @ModelAttribute("order")  Order order, Errors errors,
-                               SessionStatus sessionStatus) {
+                               SessionStatus sessionStatus, @AuthenticationPrincipal User user) {
         if (errors.hasErrors())
             return "orderForm";
+
+        order.addUser(user);
 
         orderRepo.save(order);
         sessionStatus.setComplete();

@@ -1,5 +1,6 @@
 package com.ccccccc.pizzademo.domain;
 
+import com.ccccccc.pizzademo.User;
 import lombok.Data;
 import org.hibernate.validator.constraints.CreditCardNumber;
 
@@ -61,9 +62,14 @@ public class Order implements Serializable {
     @JoinTable(name = "Pizza_Order_Pizzas" , joinColumns = @JoinColumn(name = "pizzaOrder"), inverseJoinColumns = @JoinColumn(name = "pizza"))
     private List<Pizza> pizzas = new ArrayList<>();
 
+    @ManyToOne(targetEntity = User.class)
+    private User user;
+
     public void addDesign(Pizza design) {
         this.pizzas.add(design);
     }
+
+    public void addUser(User user) { this.user=user;}
 
     @PrePersist
     void placedAt() {
