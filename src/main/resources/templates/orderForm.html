@@ -16,11 +16,11 @@
         </div>
         <h3>Deliver my Pizza here..</h3>
 
-        <label for="name">Name: </label>
-        <input type="text" th:field="*{name}"/>
+        <label for="deliveryName">deliveryName: </label>
+        <input type="text" th:field="*{deliveryName}"/>
         <span class="validationError"
-              th:if="${#fields.hasErrors('name')}"
-              th:errors="*{name}">name Error</span>
+              th:if="${#fields.hasErrors('deliveryName')}"
+              th:errors="*{deliveryName}">deliveryName Error</span>
         <br/>
 
         <label for="street">Street Address: </label>
