@@ -28,7 +28,7 @@ public class Order implements Serializable {
 
     @NotBlank(message = "Name is required.")
     @Column(name = "deliveryName")
-    private String name;
+    private String deliveryName;
 
     @NotBlank(message = "Street is required.")
     @Column(name = "deliveryStreet")

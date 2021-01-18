@@ -11,7 +11,7 @@
 <form method="post" th:action="@{/logout}" id="logoutForm">
     <input type="submit" value="logout">
 </form>
-<form method="post" th:object="${design}" id="designForm">
+<form method="post" th:action="@{/design}" th:object="${design}" id="designForm">
     <span class="validationError" style="color: red"
           th:if="${#fields.hasErrors('ingredients')}"
           th:errors="*{ingredients}">Ingredients Error</span>

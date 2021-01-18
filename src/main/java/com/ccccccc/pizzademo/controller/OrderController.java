@@ -26,13 +26,24 @@ public class OrderController {
     }
 
     @GetMapping("/current")
-    public String orderForm(Model model) {
-//        model.addAttribute("order", new Order());
+    public String orderForm(@AuthenticationPrincipal User user,
+                            @ModelAttribute("order") Order order) {
+        if (order.getDeliveryName() == null)
+            order.setDeliveryName(user.getFullname());
+        if (order.getCity() == null)
+            order.setCity(user.getCity());
+        if (order.getState() == null)
+            order.setState(user.getState());
+        if (order.getStreet() == null)
+            order.setStreet(user.getStreet());
+        if (order.getZip() == null)
+            order.setZip(user.getZip());
+
         return "orderForm";
     }
 
     @PostMapping
-    public String processOrder(@Valid @ModelAttribute("order")  Order order, Errors errors,
+    public String processOrder(@Valid @ModelAttribute("order") Order order, Errors errors,
                                SessionStatus sessionStatus, @AuthenticationPrincipal User user) {
         if (errors.hasErrors())
             return "orderForm";
