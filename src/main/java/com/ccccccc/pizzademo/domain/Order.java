@@ -46,9 +46,9 @@ public class Order implements Serializable {
     @Column(name = "deliveryZip")
     private String zip;
 
-//    @CreditCardNumber(message = "Not a valid credit card number.")
+    //    @CreditCardNumber(message = "Not a valid credit card number.")
     @NotBlank(message = "Card Number is required.")
-    @Size(min=5, message = "not valid card no")
+    @Size(min = 5, message = "not valid card no")
     private String ccNumber;
 
     @Pattern(regexp = "^(0[1-9]|1[0-2])([\\/])([1-9][0-9])$",
@@ -59,17 +59,20 @@ public class Order implements Serializable {
     private String ccCVV;
 
     @ManyToMany(targetEntity = Pizza.class)
-    @JoinTable(name = "Pizza_Order_Pizzas" , joinColumns = @JoinColumn(name = "pizzaOrder"), inverseJoinColumns = @JoinColumn(name = "pizza"))
+    @JoinTable(name = "Pizza_Order_Pizzas", joinColumns = @JoinColumn(name = "pizzaOrder"), inverseJoinColumns = @JoinColumn(name = "pizza"))
     private List<Pizza> pizzas = new ArrayList<>();
 
     @ManyToOne(targetEntity = User.class)
+    @JoinTable(name = "Pizza_Order_User", joinColumns = @JoinColumn(name = "pizzaOrder"), inverseJoinColumns = @JoinColumn(name = "user"))
     private User user;
 
     public void addDesign(Pizza design) {
         this.pizzas.add(design);
     }
 
-    public void addUser(User user) { this.user=user;}
+    public void addUser(User user) {
+        this.user = user;
+    }
 
     @PrePersist
     void placedAt() {
