@@ -4,6 +4,7 @@ import com.ccccccc.pizzademo.User;
 import com.ccccccc.pizzademo.data.OrderRepository;
 import com.ccccccc.pizzademo.domain.Order;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 
 import javax.validation.Valid;
+import java.awt.print.Pageable;
 
 @Slf4j
 @Controller
@@ -54,6 +56,16 @@ public class OrderController {
         sessionStatus.setComplete();
         log.info("Order Submit: " + order);
         return "result";
+    }
+
+    @GetMapping
+    public String ordersForUser(@AuthenticationPrincipal User user, Model model) {
+
+        Pageable pageable = (Pageable) PageRequest.of(0, 20);
+        model.addAttribute("orders",
+                orderRepo.findByUserOrderByPlacedAtDesc(user, pageable));
+
+        return "orderList";
     }
 
 }
